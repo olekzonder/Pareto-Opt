@@ -10,18 +10,17 @@ def plot_graph(points=False, unopt=False, pareto=False, optimal=False,most_optim
     mask = (X**2)/2304 + (Y-24)**2/576 <= 1 & (-X+Y <= 24) & (X+Y >= 48)
     fig = go.Figure()
     if points:
-        fig.add_trace(go.Scatter(x=[point.f1 for point in points],y=[point.f2 for point in points], mode='markers',marker=dict(color='black'),name='Точки'))
-    
+        fig.add_trace(go.Scatter(x=[point.f1 for point in points],y=[point.f2 for point in points], mode='markers',name='Точки'))
     if unopt:
-        fig.add_trace(go.Scatter(x=[point.f1 for point in unopt],y=[point.f2 for point in unopt], mode='markers', marker=dict(color='red'),name='Заведомо не эффективные точки'))
+        fig.add_trace(go.Scatter(x=[point.f1 for point in unopt],y=[point.f2 for point in unopt], mode='markers', marker=dict(color='crimson'),name='Заведомо не эффективные точки'))
     
     if pareto:
-        fig.add_trace(go.Scatter(x=[point.f1 for point in pareto],y=[point.f2 for point in pareto], mode='markers', marker=dict(color='green'),name='Множество Парето'))
+        fig.add_trace(go.Scatter(x=[point.f1 for point in pareto],y=[point.f2 for point in pareto], mode='markers', marker=dict(color='lawngreen'),name='Множество Парето'))
     
     if optimal:
-        fig.add_trace(go.Scatter(x=[point.f1 for point in optimal],y=[point.f2 for point in optimal], mode='markers', marker=dict(color='blue'),name='Оптимальный проект'))
+        fig.add_trace(go.Scatter(x=[point.f1 for point in optimal],y=[point.f2 for point in optimal], mode='markers', marker=dict(color='teal'),name='Оптимальный проект'))
     if most_optimal:
-        fig.add_trace(go.Scatter(x=[point.f1 for point in most_optimal],y=[point.f2 for point in most_optimal], mode='markers', marker=dict(color='yellow'),name='Наиболее оптимальный проект'))
+        fig.add_trace(go.Scatter(x=[point.f1 for point in most_optimal],y=[point.f2 for point in most_optimal], mode='markers',name='Наиболее оптимальный проект'))
     if ideal:
         fig.add_trace(go.Scatter(x=[point.f1 for point in ideal],y=[point.f2 for point in ideal], mode='markers', marker=dict(color='magenta'),name='Идеальная точка'))
     fig.update_layout(xaxis_title='F1', yaxis_title='F2')
