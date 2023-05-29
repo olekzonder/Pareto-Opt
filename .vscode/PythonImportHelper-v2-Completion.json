@@ -1,0 +1,252 @@
+[
+    {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
+        "label": "Point",
+        "importPath": "point",
+        "description": "point",
+        "isExtraImport": true,
+        "detail": "point",
+        "documentation": {}
+    },
+    {
+        "label": "Point",
+        "importPath": "point",
+        "description": "point",
+        "isExtraImport": true,
+        "detail": "point",
+        "documentation": {}
+    },
+    {
+        "label": "Point",
+        "importPath": "point",
+        "description": "point",
+        "isExtraImport": true,
+        "detail": "point",
+        "documentation": {}
+    },
+    {
+        "label": "Points",
+        "importPath": "point",
+        "description": "point",
+        "isExtraImport": true,
+        "detail": "point",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "plotly.graph_objs",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "plotly.graph_objs",
+        "description": "plotly.graph_objs",
+        "detail": "plotly.graph_objs",
+        "documentation": {}
+    },
+    {
+        "label": "sqrt",
+        "importPath": "math",
+        "description": "math",
+        "isExtraImport": true,
+        "detail": "math",
+        "documentation": {}
+    },
+    {
+        "label": "streamlit",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "streamlit",
+        "description": "streamlit",
+        "detail": "streamlit",
+        "documentation": {}
+    },
+    {
+        "label": "plot_graph",
+        "importPath": "graph",
+        "description": "graph",
+        "isExtraImport": true,
+        "detail": "graph",
+        "documentation": {}
+    },
+    {
+        "label": "filter_optimal",
+        "importPath": "opt",
+        "description": "opt",
+        "isExtraImport": true,
+        "detail": "opt",
+        "documentation": {}
+    },
+    {
+        "label": "Hermeyer",
+        "importPath": "opt",
+        "description": "opt",
+        "isExtraImport": true,
+        "detail": "opt",
+        "documentation": {}
+    },
+    {
+        "label": "ideal_point",
+        "importPath": "opt",
+        "description": "opt",
+        "isExtraImport": true,
+        "detail": "opt",
+        "documentation": {}
+    },
+    {
+        "label": "Linear",
+        "importPath": "opt",
+        "description": "opt",
+        "isExtraImport": true,
+        "detail": "opt",
+        "documentation": {}
+    },
+    {
+        "label": "Threshold",
+        "importPath": "opt",
+        "description": "opt",
+        "isExtraImport": true,
+        "detail": "opt",
+        "documentation": {}
+    },
+    {
+        "label": "plot_graph",
+        "kind": 2,
+        "importPath": "graph",
+        "description": "graph",
+        "peekOfCode": "def plot_graph(points=False, unopt=False, pareto=False, optimal=False,most_optimal=False,ideal = False):\n    x = np.linspace(0,50,1000)\n    y = np.linspace(0,50,1000)\n    X,Y = np.meshgrid(x,y)\n    mask = (X**2)/2304 + (Y-24)**2/576 <= 1 & (-X+Y <= 24) & (X+Y >= 48)\n    fig = go.Figure()\n    if points:\n        fig.add_trace(go.Scatter(x=[point.f1 for point in points],y=[point.f2 for point in points], mode='markers',name='Точки'))\n    if unopt:\n        fig.add_trace(go.Scatter(x=[point.f1 for point in unopt],y=[point.f2 for point in unopt], mode='markers', marker=dict(color='red'),name='Заведомо не эффективные точки'))",
+        "detail": "graph",
+        "documentation": {}
+    },
+    {
+        "label": "Linear",
+        "kind": 6,
+        "importPath": "opt",
+        "description": "opt",
+        "peekOfCode": "class Linear:\n    def __init__(self,w1,w2):\n        self.w1 = w1\n        self.w2 = w2\n    def linear_combination(self,p):\n        return self.w1 * p.f1 + self.w2 * p.f2\n    def linear_optimal(self,unopt,pareto):\n        optimal = [max(pareto, key=self.linear_combination)]\n        return [unopt,pareto,optimal]\nclass Hermeyer:",
+        "detail": "opt",
+        "documentation": {}
+    },
+    {
+        "label": "Hermeyer",
+        "kind": 6,
+        "importPath": "opt",
+        "description": "opt",
+        "peekOfCode": "class Hermeyer:\n    def __init__(self):\n        pass\n    def hermeyer(self,p):\n        return min([p.f1,p.f2])\n    def hermeyer_optimal(self,unopt,pareto):\n        optimal = [max(pareto, key=self.hermeyer)]\n        return [unopt,pareto,optimal]\ndef ideal_point(points,unopt,pareto):\n    max_f1 = max(point.f1 for point in points)",
+        "detail": "opt",
+        "documentation": {}
+    },
+    {
+        "label": "Threshold",
+        "kind": 6,
+        "importPath": "opt",
+        "description": "opt",
+        "peekOfCode": "class Threshold:\n    def __init__(self,criterion,threshold):\n        self.criterion = criterion\n        self.threshold = threshold\n    def threshold_optimal(self,unopt,pareto):\n        if self.criterion == 'f1':\n            optimal = [point for point in pareto if point.f2 > self.threshold]\n            try:\n                most_optimal = [max(optimal,key = lambda point: point.f1)]\n            except:",
+        "detail": "opt",
+        "documentation": {}
+    },
+    {
+        "label": "dominates",
+        "kind": 2,
+        "importPath": "opt",
+        "description": "opt",
+        "peekOfCode": "def dominates(p,q):\n     return p.f1 >= q.f1 and p.f2 >= q.f2 and (p.f1 > q.f1 or p.f2 > q.f2)\ndef filter_optimal(points):\n    n = len(points)\n    dominated = set()\n    for i in range(n):\n        if i in dominated:\n            continue\n        for j in range(i+1, n):\n            if dominates(points[i], points[j]):",
+        "detail": "opt",
+        "documentation": {}
+    },
+    {
+        "label": "filter_optimal",
+        "kind": 2,
+        "importPath": "opt",
+        "description": "opt",
+        "peekOfCode": "def filter_optimal(points):\n    n = len(points)\n    dominated = set()\n    for i in range(n):\n        if i in dominated:\n            continue\n        for j in range(i+1, n):\n            if dominates(points[i], points[j]):\n                dominated.add(j)\n            elif dominates(points[j], points[i]):",
+        "detail": "opt",
+        "documentation": {}
+    },
+    {
+        "label": "ideal_point",
+        "kind": 2,
+        "importPath": "opt",
+        "description": "opt",
+        "peekOfCode": "def ideal_point(points,unopt,pareto):\n    max_f1 = max(point.f1 for point in points)\n    max_f2 = max(point.f2 for point in points)\n    ideal = Point(max_f1, max_f2)\n    for point in pareto:\n        point.distance = point.distance_to(ideal)\n    optimal = [min(pareto, key = lambda point: point.distance)]\n    return [unopt,pareto,optimal,[ideal]]\nclass Threshold:\n    def __init__(self,criterion,threshold):",
+        "detail": "opt",
+        "documentation": {}
+    },
+    {
+        "label": "Point",
+        "kind": 6,
+        "importPath": "point",
+        "description": "point",
+        "peekOfCode": "class Point:\n    distance = int()\n    def __init__(self,x,y):\n        self.f1 = x\n        self.f2 = y\n    def distance_to(self,point):\n        return sqrt((self.f1 - point.f1)**2 + (self.f2 - point.f2)**2)\nclass Points:\n    def __init__(self):\n        self.points = []",
+        "detail": "point",
+        "documentation": {}
+    },
+    {
+        "label": "Points",
+        "kind": 6,
+        "importPath": "point",
+        "description": "point",
+        "peekOfCode": "class Points:\n    def __init__(self):\n        self.points = []\n    def generate(self,n):\n        while len(self.points) < n:\n            x = random.uniform(0,100)\n            y = random.uniform(0,100)\n            if ((x**2)/2304 + (y-24)**2/576 <= 1) & (-x+y <= 24) & (x+y >= 48):\n                self.points.append(Point(x,y))",
+        "detail": "point",
+        "documentation": {}
+    },
+    {
+        "label": "generate_points",
+        "kind": 2,
+        "importPath": "python",
+        "description": "python",
+        "peekOfCode": "def generate_points(n):\n    st.session_state.points = Points()\n    st.session_state.points.generate(n)\n    return st.session_state.points\ndef get_points():\n    return st.session_state.points\nst.set_page_config(\n    page_title=\"ФММРАЗ\",\n    page_icon=\"🤠\",\n    layout=\"wide\",",
+        "detail": "python",
+        "documentation": {}
+    },
+    {
+        "label": "get_points",
+        "kind": 2,
+        "importPath": "python",
+        "description": "python",
+        "peekOfCode": "def get_points():\n    return st.session_state.points\nst.set_page_config(\n    page_title=\"ФММРАЗ\",\n    page_icon=\"🤠\",\n    layout=\"wide\",\n    initial_sidebar_state=\"expanded\",\n    menu_items={\n        'About': \"# Выполнил Александр Смирнов\",\n        'Get help': \"https://github.com/olekzonder\"",
+        "detail": "python",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_w2",
+        "kind": 2,
+        "importPath": "python",
+        "description": "python",
+        "peekOfCode": "def calculate_w2(w1):\n    return 1.0 - w1\nmatch(method):\n    case 'Генерация нового графика':\n        n = st.sidebar.slider('Выберите количество точек', 10, 1000, 100)\n        points  = generate_points(n)\n        fig = plot_graph(points=points.points)\n    case 'Нахождение множества Парето':\n        points = get_points()\n        unopt,pareto = filter_optimal(points.points)",
+        "detail": "python",
+        "documentation": {}
+    },
+    {
+        "label": "methods",
+        "kind": 5,
+        "importPath": "python",
+        "description": "python",
+        "peekOfCode": "methods = ['Генерация нового графика', 'Нахождение множества Парето', \n           'Метод обобщённой функции (линейная свёртка)', \n           'Метод обобщённой функции (функция Гермейера)', \n           'Метод пороговой оптимизации', 'Метод идеальной точки']\nst.sidebar.write(\"# Нахождение оптимального по Парето проекта\")\nst.sidebar.write(\"КДЗ 1.6\")\nmethod = st.sidebar.selectbox('## Выберите пункт меню:', methods)\n@st.cache_data\ndef calculate_w2(w1):\n    return 1.0 - w1",
+        "detail": "python",
+        "documentation": {}
+    },
+    {
+        "label": "method",
+        "kind": 5,
+        "importPath": "python",
+        "description": "python",
+        "peekOfCode": "method = st.sidebar.selectbox('## Выберите пункт меню:', methods)\n@st.cache_data\ndef calculate_w2(w1):\n    return 1.0 - w1\nmatch(method):\n    case 'Генерация нового графика':\n        n = st.sidebar.slider('Выберите количество точек', 10, 1000, 100)\n        points  = generate_points(n)\n        fig = plot_graph(points=points.points)\n    case 'Нахождение множества Парето':",
+        "detail": "python",
+        "documentation": {}
+    }
+]
