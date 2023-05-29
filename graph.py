@@ -21,7 +21,7 @@ def plot_graph(points=False, unopt=False, pareto=False, optimal=False,most_optim
     if optimal:
         fig.add_trace(go.Scatter(x=[point.f1 for point in optimal],y=[point.f2 for point in optimal], mode='markers', marker=dict(color='blue'),name='Оптимальный проект'))
     if most_optimal:
-        fig.add_trace(go.Scatter(x=[point.f1 for point in most_optimal],y=[point.f2 for point in most_optimal], mode='markers', marker=dict(color='cyan'),name='Наиболее оптимальный проект'))
+        fig.add_trace(go.Scatter(x=[point.f1 for point in most_optimal],y=[point.f2 for point in most_optimal], mode='markers', marker=dict(color='skyblue'),name='Наиболее оптимальный проект'))
     if ideal:
         fig.add_trace(go.Scatter(x=[point.f1 for point in ideal],y=[point.f2 for point in ideal], mode='markers', marker=dict(color='magenta'),name='Идеальная точка'))
     fig.update_layout(xaxis_title='F1', yaxis_title='F2')
